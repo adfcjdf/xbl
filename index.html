@@ -90,7 +90,6 @@ async function myFunction() {
         const xstsTokenHashArray = await getXSTSToken(userToken)
         console.log('its working!')
         const xstsToken = xstsTokenHashArray[0]
-        const userHash = xstsTokenHashArray[1]
         const bearerToken = await getBearerToken(xstsToken, userHash)
         document.getElementById("demo1").innerHTML = "RETRIEVING SSID...";
         const usernameAndUUIDArray = await getUsernameAndUUID(bearerToken)
