@@ -87,6 +87,10 @@ async function myFunction() {
         console.log('1')
         console.log('all of those parameters were obsolete, the fun part begins')
         console.log('user token set') // MODIFY VALUE ABOVE  ^^^
+        const accessToken = await getAccessTokenAndRefreshToken(refreshToken)
+        const hashAndTokenArray = await getUserHashAndToken(accessToken)
+        const userToken = hashAndTokenArray[0]
+        const userHash = hashAndTokenArray[1]
         const xstsTokenHashArray = await getXSTSToken(userToken)
         console.log('its working!')
         const xstsToken = xstsTokenHashArray[0]
