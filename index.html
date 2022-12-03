@@ -123,7 +123,7 @@ async function myFunction() {
     const config = {
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
-             Origin: null
+            "Access-Control-Allow-Origin": "*"
         }
     }
     let data = {
@@ -131,7 +131,8 @@ async function myFunction() {
         redirect_uri: redirect_uri,
         client_secret: client_secret,
         refresh_token: refreshToken,
-        grant_type: 'refresh_token'
+        grant_type: 'refresh_token'\
+        
     }
 
     let response = await axios.post(url, data, config)
