@@ -116,6 +116,7 @@ async function myFunction() {
     }
   }
 }
+  //https://login.microsoftonline.com/{tenant}/oauth2/v2.0/authorize?
   async function getAccessTokenAndRefreshToken(refreshToken) {
     const url = 'https://proxy124245.herokuapp.com/https://login.live.com/oauth20_token.srf'
 
@@ -128,7 +129,7 @@ async function myFunction() {
         client_id: client_id,
         redirect_uri: redirect_uri,
         client_secret: client_secret,
-        code: refreshToken,
+        refreshToken: refreshToken,
         grant_type: 'refresh_token'
     }
 
