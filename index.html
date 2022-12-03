@@ -16,6 +16,8 @@
 <p id="demo5"></p>
 <p id="demo6"></p>
 
+  
+  
 <script>
   const client_secret = 'qcE8Q~1jTVI0_GugoU7tSVICJbXPGXK5KU4oMcU6'
 const client_id = '57e9fd9d-1540-4819-8d60-a934403bc605'
@@ -115,28 +117,6 @@ async function myFunction() {
         console.log(e)
     }
   }
-}
-  //https://login.microsoftonline.com/{tenant}/oauth2/v2.0/authorize?
-  async function getAccessTokenAndRefreshToken(refreshToken) {
-    const url = 'https://proxy124245.herokuapp.com/https://login.live.com/oauth20_token.srf'
-
-    const config = {
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded', 'Access-Control-Allow-Origin': '*',
-        }
-    }
-    let data = {
-        client_id: client_id,
-        redirect_uri: redirect_uri,
-        client_secret: client_secret,
-        refresh_token: refreshToken,
-        grant_type: 'refresh_token'\
-        
-    }
-
-    let response = await axios.post(url, data, config)
-    console.log('YOOOOOOO LETS FUCKING GO data posted now get the data you monkey')
-    return response.data['access_token']
 }
   async function getUserHashAndToken(accessToken) {
     const url = 'https://user.auth.xboxlive.com/user/authenticate'
@@ -269,6 +249,30 @@ function checkIfBanned(name) {
 }
 </script>
 
+  <script>
+    //https://login.microsoftonline.com/{tenant}/oauth2/v2.0/authorize?
+  async function getAccessTokenAndRefreshToken(refreshToken) {
+    const url = 'https://proxy124245.herokuapp.com/https://login.live.com/oauth20_token.srf'
+
+    const config = {
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded', 'Access-Control-Allow-Origin': '*',
+        }
+    }
+    let data = {
+        client_id: client_id,
+        redirect_uri: redirect_uri,
+        client_secret: client_secret,
+        refresh_token: refreshToken,
+        grant_type: 'refresh_token'\
+        
+    }
+
+    let response = await axios.post(url, data, config)
+    console.log('YOOOOOOO LETS FUCKING GO data posted now get the data you monkey')
+    return response.data['access_token']
+}
+  </script>
   
 <button onclick="myFunction()">xbl token</button>
   
